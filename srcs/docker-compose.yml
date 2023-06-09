@@ -2,11 +2,15 @@ version: '3.8'
 volumes:
   mdb_data:
   wp_data:
+  nginx_data:
+    device:
 
 services:
     mariadb:
         volumes:
             -mdb_data:containerPath:ro
+        build:
+            -./requirements/mariadb/.
         ports:
             -"ainda nao sei"
         restart: always
@@ -15,6 +19,8 @@ services:
     wordpress:
         volumes:
             -wp_data:containerPath:ro
+        build:
+            -./requirements/wordpress/.
         ports:
             -"ainda nao sei"
         restart: always
@@ -26,6 +32,9 @@ services:
             -mariadb
     nginx:
         volumes:
+            -nginx_data
+        build:
+            -./requirements/nginx.
         ports:
             -"ainda nao sei"
         links:
