@@ -4,25 +4,30 @@ volumes:
   wp_data:
 
 services:
-    wordpress:
-        volumes:
-            -wp_data:containerPath:ro
-        ports:
-            -"ainda nao sei"
-        restart: always
-        environment:
-            - vai ser=em ficheiro .env
     mariadb:
         volumes:
             -mdb_data:containerPath:ro
         ports:
             -"ainda nao sei"
         restart: always
-        environment:
-            - vai ser=em ficheiro .env
-    nginx:
+        env_file:
+            - .env
+    wordpress:
+        volumes:
+            -wp_data:containerPath:ro
         ports:
             -"ainda nao sei"
         restart: always
-        environment:
-            - vai ser=em ficheiro .env
+        env_file:
+            - .env
+        depends_on:
+            - mariadb
+        links: 
+            -mariadb
+    nginx:
+        volumes:
+        ports:
+            -"ainda nao sei"
+        links:
+            -wordpress
+        restart: always
