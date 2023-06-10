@@ -1,42 +1,52 @@
 version: '3.8'
+
 volumes:
   mdb_data:
+    device: /home/fvieira/data/mariadb
   wp_data:
-  nginx_data:
-    device:
+    device: /home/fvieira/data/wordpress
+
+networks:
+    network:
+        driver: bridge
 
 services:
     mariadb:
+        hostname: mariadb
         volumes:
-            -mdb_data:containerPath:ro
+            -mdb_data:/var/lib/mysql
         build:
             -./requirements/mariadb/.
         ports:
-            -"ainda nao sei"
+            -3306:3306
         restart: always
         env_file:
             - .env
+        networks:
+            - network
     wordpress:
+        hostname: wordpress
         volumes:
-            -wp_data:containerPath:ro
+            -wp_data:/var/www/html
         build:
             -./requirements/wordpress/.
         ports:
-            -"ainda nao sei"
+            -9000:9000
         restart: always
         env_file:
             - .env
         depends_on:
             - mariadb
-        links: 
-            -mariadb
+        networks:
+            - network
     nginx:
+        hostname: nginx
         volumes:
-            -nginx_data
+            -wp_data:/var/www/html
         build:
             -./requirements/nginx.
         ports:
-            -"ainda nao sei"
-        links:
-            -wordpress
+            -443:443
+        networks:
+            - network
         restart: always
