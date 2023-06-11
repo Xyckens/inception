@@ -1,10 +1,16 @@
 version: '3.8'
 
 volumes:
-  mdb_data:
-    device: /home/fvieira/data/mariadb
-  wp_data:
-    device: /home/fvieira/data/wordpress
+    mdb_data:
+        driver_opts:
+            type: none
+            o: bind
+        device: /home/fvieira/data/mariadb
+    wp_data:
+        driver_opts:
+            type: none
+            o: bind
+        device: /home/fvieira/data/wordpress
 
 networks:
     network:
