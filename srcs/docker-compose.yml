@@ -2,11 +2,13 @@ version: '3.8'
 
 volumes:
     mdb_data:
+        driver: local
         driver_opts:
             type: none
             o: bind
         device: /home/fvieira/data/mariadb
     wp_data:
+        driver: local
         driver_opts:
             type: none
             o: bind
