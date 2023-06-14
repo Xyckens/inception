@@ -6,4 +6,4 @@ COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 COPY ./tools/script.sh /tmp/
 
-CMD [ "/script.sh" ]
+CMD [ "/bin/bash", "/temp/script.sh" ]

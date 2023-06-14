@@ -2,12 +2,14 @@ version: '3.8'
 
 volumes:
     mariadb:
+        name: mariadb
         driver: local
         driver_opts:
             type: none
             o: bind
             device: /home/fvieira/data/mariadb
     wordpress:
+        name: wordpress
         driver: local
         driver_opts:
             type: none
@@ -20,7 +22,7 @@ networks:
 
 services:
     mariadb:
-        hostname: mariadb
+        container_name: mariadb
         volumes:
             - mariadb:/var/lib/mysql
         build: ./requirements/mariadb/.
@@ -32,7 +34,7 @@ services:
         networks:
             - network
     wordpress:
-        hostname: wordpress
+        container_name: wordpress
         volumes:
             - wordpress:/var/www/html
         build: ./requirements/wordpress/.
@@ -46,7 +48,7 @@ services:
         networks:
             - network
     nginx:
-        hostname: nginx
+        container_name: nginx
         volumes:
             - wordpress:/var/www/html
         build: ./requirements/nginx/.
