@@ -4,6 +4,6 @@ RUN apt update -y && apt install -y mariadb-server
 
 COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/
 
-COPY ./tools/script.sh /tmp/
+COPY ./tools/mdbscript.sh /tmp/
 
-CMD [ "/bin/bash", "/temp/script.sh" ]
+CMD [ "/bin/bash", "/tmp/mdbscript.sh" ]
