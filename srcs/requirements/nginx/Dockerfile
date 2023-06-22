@@ -5,7 +5,10 @@ RUN apt update -y
 RUN apt install -y nginx && apt install -y openssl
 
 # https://devopscube.com/create-self-signed-certificates-openssl/
+RUN mkdir -p /var/www/html
 
+COPY ./tools/server /etc/nginx/sites-available
+RUN ln -s /etc/nginx/sites-available/server /etc/nginx/sites-enabled/
 RUN openssl req -x509 \
             -sha256 -days 356 \
             -nodes \
