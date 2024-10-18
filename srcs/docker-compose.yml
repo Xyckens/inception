@@ -7,14 +7,14 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: /home/fvieira/data/mariadb
+            device: ~/data/mariadb
     wordpress:
         name: wordpress
         driver: local
         driver_opts:
             type: none
             o: bind
-            device: /home/fvieira/data/wordpress
+            device: ~/data/wordpress
 
 networks:
     network:
@@ -23,39 +23,48 @@ networks:
 services:
     mariadb:
         container_name: mariadb
+        init: true
         image: mariadb:prod
         volumes:
             - mariadb:/var/lib/mysql
-        build: ./requirements/mariadb/.
+        build: 
+            context: ./requirements/mariadb
         ports:
             - "3306:3306"
-        restart: always
+        restart: on-failure
         env_file:
-            - .env
+            - ./.env
         networks:
             - network
+
     wordpress:
         container_name: wordpress
         image: wordpress:prod
         volumes:
             - wordpress:/var/www/html
-        build: ./requirements/wordpress/.
+        build: 
+            context: ./requirements/wordpress
         ports:
             - "9000:9000"
-        restart: always
+        restart: on-failure
         env_file:
-            - .env
+            - ./.env
         depends_on:
             - mariadb
         networks:
             - network
+
     nginx:
         container_name: nginx
+        image: nginx
         volumes:
             - wordpress:/var/www/html
-        build: ./requirements/nginx/.
+        build: 
+            context: ./requirements/nginx
         ports:
             - "443:443"
         networks:
             - network
-        restart: always
+        depends_on:
+            - wordpress
+        restart: on-failure
