@@ -1,29 +1,39 @@
 #!/bin/bash
-mysql_install_db;
-service mysql start;
+
+# Remove mysql_install_db as it's no longer needed in newer versions
+# mysql_install_db; # This line is deprecated
+
+# Start MariaDB
+mysqld_safe &  # Use mysqld_safe instead of trying to use `service`
+
+# Wait for the database to start
+sleep 10
 
 # Configure database
 if [ -d /var/lib/mysql/${DB_NAME} ]; then
-	echo "${DB_NAME} already created"
-then
-	# creating database
-	mariadb -u root -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
-	# creating user DB_USER %
-	mariadb -u root -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';"
-	mariadb -u root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';"
-	mariadb -u root -e "FLUSH PRIVILEGES;"
-	# creating user DB_USER local
-	mariadb -u root -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
-	mariadb -u root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
-	mariadb -u root -e "FLUSH PRIVILEGES;"
-	echo "${DB_NAME} created database"
-	
-	mariadb -u root -e "CREATE TABLE ${DB_NAME}.todo_list (item_id INT AUTO_INCREMENT, content VARCHAR(255), PRIMARY KEY(item_id));"
-	mariadb -u root -e "INSERT INTO ${DB_NAME}.todo_list (content) VALUES ('My first task, yay');"
-	mariadb -u root -e "INSERT INTO ${DB_NAME}.todo_list (content) VALUES ('Second task, gimme more');"
-	mariadb -u root -e "INSERT INTO ${DB_NAME}.todo_list (content) VALUES ('Last task i promise');"
-	mariadb -u root -e "INSERT INTO ${DB_NAME}.todo_list (content) VALUES ('one more task');"
+    echo "${DB_NAME} already exists"
+else
+    # Create database
+    mariadb -u root -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
+
+    # Create user for external connections
+    mariadb -u root -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';"
+    mariadb -u root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';"
+    mariadb -u root -e "FLUSH PRIVILEGES;"
+
+    # Create user for local connections
+    mariadb -u root -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
+    mariadb -u root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost';"
+    mariadb -u root -e "FLUSH PRIVILEGES;"
+
+    # Create a sample table and insert initial data
+    mariadb -u root -e "CREATE TABLE ${DB_NAME}.todo_list (item_id INT AUTO_INCREMENT, content VARCHAR(255), PRIMARY KEY(item_id));"
+    mariadb -u root -e "INSERT INTO ${DB_NAME}.todo_list (content) VALUES ('My first task, yay');"
+    mariadb -u root -e "INSERT INTO ${DB_NAME}.todo_list (content) VALUES ('Second task, gimme more');"
+    mariadb -u root -e "INSERT INTO ${DB_NAME}.todo_list (content) VALUES ('Last task I promise');"
+    mariadb -u root -e "INSERT INTO ${DB_NAME}.todo_list (content) VALUES ('One more task');"
+
+    echo "${DB_NAME} database created"
 fi
 
-service mysql stop;
-mysqld_safe;
+wait

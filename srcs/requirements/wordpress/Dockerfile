@@ -14,8 +14,8 @@ RUN	wget --no-check-certificate https://raw.githubusercontent.com/wp-cli/builds/
 RUN     mkdir -p /run/php/ /var/run/php/ /var/www/html/ \
         && chown -R www-data:www-data /var/www/html/
 
-COPY    ./conf/wp-config.php /var/www/html/
-COPY    ./tools/wpscript.sh /bin/
+COPY    conf/wp-config.php /var/www/html/
+COPY    tools/wpscript.sh /bin/
 
 RUN     chmod +x /bin/wpscript.sh
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Checks if wp-config.php is present
-if [ ! -f /var/www/network/wp-config.php ]; then
+if [ ! -f /var/www/html/wp-config.php ]; then
     echo "WordPress configuration file not found!"
     exit 1
 fi

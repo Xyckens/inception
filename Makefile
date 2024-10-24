@@ -1,16 +1,14 @@
 
-vol:
+up:
 	sudo mkdir -p ~/data
 	sudo mkdir -p ~/data/mariadb
 	sudo mkdir -p ~/data/wordpress
-
-up2:
-	docker-compose -f ./srcs/docker-compose.yml up -d
+	sudo docker-compose -f ./srcs/docker-compose.yml up -d
 
 down:
 	docker-compose -f ./srcs/docker-compose.yml down
 
-all: vol up2
+all: up
 
 # This target ensures all containers are removed if they exist
 remove-containers:
