@@ -32,8 +32,8 @@ if ! wp --allow-root --path="/var/www/html/" user get $WP_USER ; then
     wp  --allow-root --path="/var/www/html/" user create \
         $WP_USER \
         $WP_EMAIL \
-        --role=$WP_ROLE \
-        --user_pass=$WP_PASSWORD
+        --user_pass=$WP_PASSWORD \
+        --role=$WP_ROLE
 fi;
 
 # Execute the command passed to the script

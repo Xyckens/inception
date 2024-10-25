@@ -48,16 +48,16 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-/*
-define( 'AUTH_KEY',         'put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-define( 'NONCE_KEY',        'put your unique phrase here' );
-define( 'AUTH_SALT',        'put your unique phrase here' );
-define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-define( 'NONCE_SALT',       'put your unique phrase here' );
-*/
+
+define( 'AUTH_KEY',         'gdfsgflhlhkhdgfdgfdgfdgfdgfdg' );
+define( 'SECURE_AUTH_KEY',  'hythtfhfthtfhghghghggghhtfhfh' );
+define( 'LOGGED_IN_KEY',    'hytyhjghjgfjtjgfhfthtfhhtfhfh' );
+define( 'NONCE_KEY',        'hytyhtfhfthtjfgjhjfhgfhhtfhfh' );
+define( 'AUTH_SALT',        'hytyhtfhftshtyrtshshtfhhtfhfh' );
+define( 'SECURE_AUTH_SALT', 'hytyhtfhfthktfhhtfdkhgkdgkhfh' );
+define( 'LOGGED_IN_SALT',   'hytyhtfhfthtfkhkytrkjyjhtfhfh' );
+define( 'NONCE_SALT',       'hytyhtfhfthrfhrstdthtfhhtfhfh' );
+define( 'WP_CACHE_KEY_SALT','hytyiju7ithrfhrstdthtfhhtfhfh' );
 
 /**#@-*/
 
@@ -96,4 +96,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
-?>

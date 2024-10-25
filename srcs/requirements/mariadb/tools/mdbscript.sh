@@ -7,7 +7,7 @@
 mysqld_safe &  # Use mysqld_safe instead of trying to use `service`
 
 # Wait for the database to start
-sleep 10
+sleep 5
 
 # Configure database
 if [ -d /var/lib/mysql/${DB_NAME} ]; then

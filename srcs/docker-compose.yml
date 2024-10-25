@@ -22,7 +22,6 @@ services:
     mariadb:
         container_name: mariadb
         init: true
-        image: mariadb:prod
         volumes:
             - mariadb:/var/lib/mysql
         build: 
@@ -31,13 +30,12 @@ services:
             - "3306:3306"
         restart: on-failure
         env_file:
-            - ./.env
+            - .env
         networks:
             - network
 
     wordpress:
         container_name: wordpress
-        image: wordpress:prod
         volumes:
             - wordpress:/var/www/html/
         build: 
@@ -46,7 +44,7 @@ services:
             - "9000:9000"
         restart: on-failure
         env_file:
-            - ./.env
+            - .env
         depends_on:
             - mariadb
         networks:
@@ -54,7 +52,6 @@ services:
 
     nginx:
         container_name: nginx
-        image: nginx
         volumes:
             - wordpress:/var/www/html/
         build: 
@@ -63,6 +60,8 @@ services:
             - "443:443"
         networks:
             - network
+        env_file:
+            - ./.env
         depends_on:
             - wordpress
         restart: on-failure
