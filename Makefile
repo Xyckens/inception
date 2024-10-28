@@ -17,6 +17,7 @@ all: up
 remove-containers:
 	@if [ "$$(docker ps -aq)" ]; then \
 		docker rm -f $$(docker ps -aq); \
+		docker rmi -f $$(docker images -q) \
 	else \
 		echo "No containers to remove."; \
 	fi
@@ -26,10 +27,8 @@ down-with-volumes:
 	docker-compose -f ./srcs/docker-compose.yml down --volumes
 
 # This target removes images
-rm-image:
-	docker rmi -f $$(docker images -q)
 
-clean: down remove-containers rm-image
+clean: down remove-containers
 
 fclean: clean
 	@sudo rm -rf ~/data

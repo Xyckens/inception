@@ -43,3 +43,11 @@ service mariadb stop
 
 # executes the command passed to the script as argument (specified by CMD). Replaces the current shell process with the specified command, which is efficient and ensures that signals are correctly passed to the main process
 exec $@
+
+
+#sudo docker exec -it ****** /bin/bash
+#mysql -u lol1 -p ******
+#SHOW DATABASES;
+#USE ****;
+#SHOW TABLES;
+#SELECT * FROM ****;

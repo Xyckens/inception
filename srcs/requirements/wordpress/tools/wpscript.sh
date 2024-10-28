@@ -4,8 +4,7 @@ chown -R www-data:www-data /var/www/html/
 
 # Checks if wp-config.php is present
 if [ ! -f /var/www/html/wp-config.php ]; then
-    echo "WordPress configuration file not found!"
-    exit 1
+    mv /tmp/wp-config.php /var/www/html/
 fi
 
 # Ensures other services (like databases) are fully initialized before attempting to install or configure WordPress.
