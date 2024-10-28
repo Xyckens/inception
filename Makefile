@@ -3,6 +3,9 @@ up:
 	sudo mkdir -p ~/data
 	sudo mkdir -p ~/data/mariadb
 	sudo mkdir -p ~/data/wordpress
+
+	echo "127.0.0.1 fvieira.42.fr" | sudo tee -a /etc/hosts > /dev/null
+
 	sudo docker-compose -f ./srcs/docker-compose.yml up -d
 
 down:

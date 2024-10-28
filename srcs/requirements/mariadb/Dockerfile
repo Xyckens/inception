@@ -8,10 +8,10 @@ RUN mkdir -p /var/run/mysqld && \
 	chown -R mysql:mysql /var/run/mysqld && \
 	chown -R mysql:mysql /var/lib/mysql
 
-COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 COPY ./tools/mdbscript.sh /bin/
 
 RUN     chmod +x /bin/mdbscript.sh
 
-CMD [ "/bin/bash", "mdbscript.sh"]
+CMD		["mdbscript.sh", "mysqld_safe"]

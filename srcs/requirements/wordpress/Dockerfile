@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 EXPOSE  9000
 
-RUN     apt update -y && apt install php7.4-fpm php7.4-mysql curl wget tar -y
+RUN     apt update -y && apt install ca-certificates php7.4-fpm php7.4-mysql curl wget tar postfix -y
 
 COPY	conf/www.conf /etc/php/7.4/fpm/pool.d/.
 
@@ -13,7 +13,9 @@ RUN	wget --no-check-certificate https://raw.githubusercontent.com/wp-cli/builds/
 RUN     mkdir -p /run/php/ /var/run/php/ /var/www/html/ \
         && chown -R www-data:www-data /var/www/html/
 
+COPY    conf/wp-config.php /temp/
 COPY    conf/wp-config.php /var/www/html/
+
 COPY    tools/wpscript.sh /bin/
 
 RUN     chmod +x /bin/wpscript.sh

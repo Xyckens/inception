@@ -36,4 +36,10 @@ else
     echo "${DB_NAME} database created"
 fi
 
-wait
+sleep 5
+
+# stops the mariadb service; it is a good practice to stop services after initial setup to ensure they can restart cleanly when the container starts again
+service mariadb stop
+
+# executes the command passed to the script as argument (specified by CMD). Replaces the current shell process with the specified command, which is efficient and ensures that signals are correctly passed to the main process
+exec $@
